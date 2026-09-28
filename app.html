@@ -9,6 +9,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" href="res/mipmap-xxxhdpi/ic_launcher.png">
   <link rel="apple-touch-icon" href="res/mipmap-xxxhdpi/ic_launcher.png">
   <style>
     :root {
@@ -182,6 +183,25 @@
       border-radius: 2px;
       background: var(--white);
       color: var(--ink);
+      /* A select box is as wide as its widest option, and the longest label
+         here is ~390px. Cap it so it cannot push the page into horizontal
+         scroll on a phone. */
+      max-width: 100%;
+    }
+
+    /* Grid items and flex children default to min-width:auto, which floors them
+       at their content's min-content width. One wide control was therefore
+       enough to force the whole card, and the whole grid track, wider than a
+       phone screen. min-width:0 lets them shrink and wrap instead. */
+    .panel-grid>*,
+    .sim-grid>*,
+    .race-grid>*,
+    .stat-row>* {
+      min-width: 0;
+    }
+
+    .row>* {
+      min-width: 0;
     }
 
     input[type=text] {
