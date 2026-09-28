@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NP Certificate Verifier — Clique &amp; Vertex Cover</title>
+<meta name="theme-color" content="#e85d04">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="res/mipmap-xxxhdpi/ic_launcher.png">
 <style>
   :root{
     --white:#ffffff;
@@ -21,11 +26,13 @@
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
+  html{-webkit-tap-highlight-color:transparent;}
   body{
     background:var(--white);
     color:var(--ink);
     font-family:'IBM Plex Mono','Courier New',monospace;
     line-height:1.55;
+    touch-action:manipulation;
   }
   .display{font-family:'Space Grotesk','Segoe UI',sans-serif;}
 
@@ -985,6 +992,23 @@
   resizeCanvases();
   resetSimulator();
 })();
+</script>
+
+<script>
+  (function(){
+    var ua = navigator.userAgent || '';
+    var insideAndroidApp = /; wv/i.test(ua);
+    var secure = location.protocol === 'https:';
+    if ('serviceWorker' in navigator && secure && !insideAndroidApp) {
+      var link = document.createElement('link');
+      link.rel = 'manifest';
+      link.href = 'manifest.webmanifest';
+      document.head.appendChild(link);
+      window.addEventListener('load', function(){
+        navigator.serviceWorker.register('sw.js').catch(function(){});
+      });
+    }
+  })();
 </script>
 
 </body>
