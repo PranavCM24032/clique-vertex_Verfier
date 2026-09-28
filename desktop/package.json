@@ -7,7 +7,7 @@
   "author": "Pranav Mohan Paunikar",
   "license": "UNLICENSED",
   "main": "main.js",
-"scripts": {
+  "scripts": {
     "start": "electron .",
     "dist": "electron-builder --win portable"
   },
@@ -39,13 +39,5 @@
     "portable": {
       "artifactName": "NP-Certificate-Verifier.exe"
     }
-  }
-      ],
-      "icon": "build/icon.png"
-    },
-    "artifactName": "NP-Certificate-Verifier-Setup.exe"
-  },
-  "allowScripts": {
-    "electron@33.4.11": true
   }
 }
