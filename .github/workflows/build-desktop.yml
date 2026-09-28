@@ -34,6 +34,10 @@ jobs:
         run: npx electron-builder --win portable --publish never
 
       - name: Remove stale assets from earlier builds
+        # windows-latest defaults run: to PowerShell, which cannot parse the
+        # POSIX syntax below. Without this the step dies on a parse error and
+        # the publish step below never runs.
+        shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: np-verifier-desktop
@@ -43,18 +47,34 @@ jobs:
           # older builds stay attached forever - which is how a retired installer
           # kept sitting next to the current portable .exe, two near-identical
           # downloads with different contents.
-          release_id=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$TAG" --jq '.id' 2>/dev/null || true)
-          if [ -z "$release_id" ]; then
-            echo "No existing release for $TAG yet - nothing to clean up."
-            exit 0
-          fi
-          gh api "repos/$GITHUB_REPOSITORY/releases/$release_id/assets" --paginate --jq '.[].id' |
-            while read -r asset_id; do
+          cleanup_assets() {
+            release_id=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$TAG" --jq '.id' 2>/dev/null || true)
+            if [ -z "$release_id" ]; then
+              echo "No existing release for $TAG yet - nothing to clean up."
+              return 0
+            fi
+            # Read the ids into a variable and loop with `for`, not a `while read`
+            # pipeline: a pipeline body runs in a subshell, so a failure flag set
+            # inside it would be discarded before the caller could see it.
+            ids=$(gh api "repos/$GITHUB_REPOSITORY/releases/$release_id/assets" --paginate --jq '.[].id')
+            failed=0
+            for asset_id in $ids; do
               [ -n "$asset_id" ] || continue
               name=$(gh api "repos/$GITHUB_REPOSITORY/releases/assets/$asset_id" --jq '.name')
-              gh api -X DELETE "repos/$GITHUB_REPOSITORY/releases/assets/$asset_id"
-              echo "Deleted stale asset: $name"
+              if gh api -X DELETE "repos/$GITHUB_REPOSITORY/releases/assets/$asset_id"; then
+                echo "Deleted stale asset: $name"
+              else
+                echo "::warning::Could not delete $name (asset $asset_id)"
+                failed=1
+              fi
             done
+            return $failed
+          }
+          # Housekeeping must never cost us the release itself: if the API call
+          # fails, warn and carry on so the fresh EXE still gets published.
+          if ! cleanup_assets; then
+            echo "::warning::Could not clear old assets from the $TAG release; it may show more than one download."
+          fi
 
       - name: Publish EXE to GitHub Release
         uses: softprops/action-gh-release@v3
