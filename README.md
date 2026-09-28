@@ -8,14 +8,26 @@ App icon and splash screen are generated from `logo.png`.
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | The web app (source of truth — edit this) |
+| `index.html` | Download landing page (first thing visitors see) |
+| `app.html` | The verifier app itself — bundled into the APK, EXE, and browser PWA |
 | `logo.png` | App icon / splash artwork source |
+| `manifest.webmanifest`, `sw.js` | PWA install + offline support for the browser version |
 | `capacitor.config.json` | App id `com.cliquevertex.verifier`, name **NP Certificate Verifier** |
 | `package.json` | Web wrapper tooling (Capacitor 8 + sharp) |
 | `res/` | Pre-generated Android icons, splash, and theme resources |
-| `scripts/prepare-web.mjs` | Copies `index.html` → `www/` for Capacitor |
+| `desktop/` | Electron wrapper that produces the Windows `.exe` |
+| `scripts/prepare-web.mjs` | Copies `app.html` → `www/` for Capacitor |
 | `scripts/generate-icons.mjs` | Regenerates `res/` from `logo.png` (`npm run icons`) |
-| `.github/workflows/build-apk.yml` | The build that produces the APK |
+| `.github/workflows/build-apk.yml` | Builds the Android APK on every push |
+| `.github/workflows/build-desktop.yml` | Builds the Windows EXE on every push |
+
+## One app, three ways to run it
+
+| Device | How | Works offline |
+| --- | --- | --- |
+| Android phone/tablet | Download the `.apk`, install (allow unknown sources) | Yes |
+| Windows 10/11 desktop | Download the `.exe`, run the installer | Yes |
+| Any browser (desktop or mobile) | Open `…/app.html`, or install it as a PWA from the browser menu | Yes |
 
 ## How to get the APK (one-time setup)
 

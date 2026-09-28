@@ -1,0 +1,59 @@
+name: Build Windows Desktop App
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    name: Build Windows installer
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Copy verifier into the desktop app
+        run: cp app.html desktop/app.html
+        shell: bash
+
+      - name: Install npm dependencies
+        working-directory: desktop
+        run: npm ci --no-audit --no-fund
+
+      - name: Build Windows installer (NSIS x64)
+        working-directory: desktop
+        run: npx electron-builder --win nsis --publish never
+
+      - name: Publish EXE to GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: np-verifier-desktop
+          name: NP Certificate Verifier — Windows App
+          body: |
+            Auto-built from the latest commit on main.
+
+            **Install**
+            1. Download NP-Certificate-Verifier-Setup.exe.
+            2. Run it (Windows 10/11, 64-bit) and follow the installer.
+            3. Launch "Clique/Vertex Verifier" from the Start menu or desktop.
+
+            Works fully offline — the verifier is bundled inside the installer.
+          files: desktop/dist/NP-Certificate-Verifier-Setup.exe
+          make_latest: 'false'
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NP-Certificate-Verifier-Windows
+          path: desktop/dist/NP-Certificate-Verifier-Setup.exe
+          if-no-files-found: error
+          retention-days: 30

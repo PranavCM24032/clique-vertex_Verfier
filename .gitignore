@@ -10,9 +10,15 @@ node_modules/
 npm-debug.log*
 package-lock.json.bak
 
+# Electron desktop build artifacts
+desktop/node_modules/
+desktop/dist/
+desktop/app.html
+
 # Android / Gradle leftovers
 .gradle/
 build/
+!desktop/build/
 local.properties
 *.apk
 *.aab
