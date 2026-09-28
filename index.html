@@ -51,6 +51,23 @@
     display:inline-block;margin-top:24px;border:1px solid var(--orange);
     color:var(--orange);padding:7px 15px;border-radius:2px;font-size:13.5px;
   }
+  .download-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:26px;}
+  a.download-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--orange);color:var(--white);
+    font-family:'Space Grotesk','Segoe UI',sans-serif;
+    font-weight:600;font-size:15px;letter-spacing:.01em;
+    padding:13px 24px;border-radius:3px;text-decoration:none;
+    box-shadow:0 3px 14px rgba(232,93,4,.35);
+    transition:background .15s ease;
+  }
+  a.download-btn:hover{background:var(--orange-deep);}
+  a.download-btn svg{display:block;}
+  .download-note{font-size:12.5px;color:#b9b1a7;margin:0;}
+  @media (max-width:520px){
+    a.download-btn{width:100%;justify-content:center;}
+    .download-note{width:100%;}
+  }
   .hero-graph{position:absolute;right:-30px;top:0;bottom:0;width:380px;opacity:.85;}
   @media (max-width:900px){.hero-graph{display:none;}}
 
@@ -192,6 +209,13 @@
   <h1>Checking a solution is<br>always cheaper than <span>finding</span> one.</h1>
   <p class="lede">Build a graph, hand the verifier a proposed certificate for Clique or Vertex Cover, then step through exactly what it checks — one comparison at a time — to see the polynomial-time bound in action.</p>
   <div class="complexity-badge">verifier runs in O(n²) — independent of solver time</div>
+  <div class="download-row" id="downloadRow">
+    <a class="download-btn" id="downloadBtn" href="https://github.com/PranavCM24032/clique-vertex_Verfier/releases/latest/download/NP-Certificate-Verifier.apk">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1v9m0 0 3.5-3.5M8 10 4.5 6.5"/><path d="M2.5 13.5h11"/></svg>
+      Download the Clique/Vertex Verifier app (.apk)
+    </a>
+    <p class="download-note">Android 7+ &nbsp;·&nbsp; works fully offline once installed</p>
+  </div>
   <svg class="hero-graph" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
     <g stroke="#e85d04" stroke-width="1.4" opacity="0.55">
       <line x1="80" y1="90" x2="220" y2="60"/><line x1="80" y1="90" x2="140" y2="220"/>
@@ -206,6 +230,18 @@
     </g>
   </svg>
 </header>
+
+<script>
+  (function(){
+    var ua = navigator.userAgent || '';
+    var inApp = /; wv/i.test(ua);
+    var onIos = /iPhone|iPad|iPod/i.test(ua);
+    if (inApp || onIos) {
+      var row = document.getElementById('downloadRow');
+      if (row) row.style.display = 'none';
+    }
+  })();
+</script>
 
 <main>
 

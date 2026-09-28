@@ -1,0 +1,13 @@
+{
+  "appId": "com.cliquevertex.verifier",
+  "appName": "NP Certificate Verifier",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#141210",
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

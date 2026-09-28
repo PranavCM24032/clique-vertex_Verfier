@@ -1,0 +1,19 @@
+{
+  "name": "cliquevertex-verifier",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NP Certificate Verifier - Clique & Vertex Cover (Capacitor Android wrapper)",
+  "scripts": {
+    "prepare:web": "node scripts/prepare-web.mjs",
+    "sync": "npm run prepare:web && cap sync android",
+    "icons": "node scripts/generate-icons.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.2",
+    "@capacitor/core": "8.5.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.2",
+    "sharp": "^0.35.5"
+  }
+}

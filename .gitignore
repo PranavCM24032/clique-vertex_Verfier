@@ -1,0 +1,24 @@
+# Build output / generated web bundle (created from index.html)
+www/
+
+# Capacitor-generated native project (recreated by CI from package.json + res/)
+android/
+ios/
+
+# Node
+node_modules/
+npm-debug.log*
+package-lock.json.bak
+
+# Android / Gradle leftovers
+.gradle/
+build/
+local.properties
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# OS
+.DS_Store
+Thumbs.db
