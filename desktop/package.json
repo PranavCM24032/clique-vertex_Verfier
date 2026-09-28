@@ -7,9 +7,9 @@
   "author": "Pranav Mohan Paunikar",
   "license": "UNLICENSED",
   "main": "main.js",
-  "scripts": {
+"scripts": {
     "start": "electron .",
-    "dist": "electron-builder --win nsis"
+    "dist": "electron-builder --win portable"
   },
   "devDependencies": {
     "electron": "^33.3.1",
@@ -30,11 +30,16 @@
     "win": {
       "target": [
         {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
+          "target": "portable",
+          "arch": ["x64"]
         }
+      ],
+      "icon": "build/icon.png"
+    },
+    "portable": {
+      "artifactName": "NP-Certificate-Verifier.exe"
+    }
+  }
       ],
       "icon": "build/icon.png"
     },

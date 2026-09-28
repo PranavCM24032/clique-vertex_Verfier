@@ -29,9 +29,9 @@ jobs:
         working-directory: desktop
         run: npm ci --no-audit --no-fund
 
-      - name: Build Windows installer (NSIS x64)
+      - name: Build Windows portable EXE (x64)
         working-directory: desktop
-        run: npx electron-builder --win nsis --publish never
+        run: npx electron-builder --win portable --publish never
 
       - name: Publish EXE to GitHub Release
         uses: softprops/action-gh-release@v3
@@ -41,19 +41,15 @@ jobs:
           body: |
             Auto-built from the latest commit on main.
 
-            **Install**
-            1. Download NP-Certificate-Verifier-Setup.exe.
-            2. Run it (Windows 10/11, 64-bit) and follow the installer.
-            3. Launch "Clique/Vertex Verifier" from the Start menu or desktop.
-
-            Works fully offline — the verifier is bundled inside the installer.
-          files: desktop/dist/NP-Certificate-Verifier-Setup.exe
+            Just download and double-click — no installation required.
+            Works fully offline on Windows 10/11 (64-bit).
+          files: desktop/dist/NP-Certificate-Verifier.exe
           make_latest: 'false'
 
-      - name: Upload installer artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: NP-Certificate-Verifier-Windows
-          path: desktop/dist/NP-Certificate-Verifier-Setup.exe
+          path: desktop/dist/NP-Certificate-Verifier.exe
           if-no-files-found: error
           retention-days: 30

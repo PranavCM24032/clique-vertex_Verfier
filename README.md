@@ -26,7 +26,7 @@ App icon and splash screen are generated from `logo.png`.
 | Device | How | Works offline |
 | --- | --- | --- |
 | Android phone/tablet | Download the `.apk`, install (allow unknown sources) | Yes |
-| Windows 10/11 desktop | Download the `.exe`, run the installer | Yes |
+| Windows 10/11 desktop | Download the `.exe`, double-click it — no install | Yes |
 | Any browser (desktop or mobile) | Open `…/app.html`, or install it as a PWA from the browser menu | Yes |
 
 ## How to get the APK (one-time setup)
