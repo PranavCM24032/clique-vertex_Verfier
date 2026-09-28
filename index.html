@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clique/Vertex Verifier — Download the Android App</title>
+<title>Clique/Vertex Verifier — APK, EXE or Browser</title>
 <style>
   :root{
     --white:#ffffff;
@@ -65,6 +65,22 @@
   }
   a.download-btn.alt:hover{background:var(--orange-tint);color:var(--orange-deep);border-color:var(--orange-deep);}
   .download-note{font-size:12px;color:#8a7f70;margin:16px 0 0;}
+  .download-note + .download-note{margin-top:6px;}
+  .win-note{
+    margin:16px 0 0;padding:12px 14px;text-align:left;
+    border:1px solid var(--line);border-left:3px solid var(--orange);
+    border-radius:3px;background:var(--paper);
+    font-size:11.5px;line-height:1.6;color:#5a534a;
+  }
+  .win-note .win-note-title{
+    display:block;margin-bottom:5px;
+    font-family:'Space Grotesk','Segoe UI',sans-serif;
+    font-size:12.5px;font-weight:600;color:var(--black);
+  }
+  .win-note code{
+    background:var(--orange-tint);color:var(--orange-deep);
+    padding:1px 5px;border-radius:2px;font-size:11px;
+  }
   .status{margin-top:20px;font-size:11.5px;color:var(--orange-deep);}
 </style>
 </head>
@@ -74,7 +90,7 @@
   <img class="logo" src="logo.png" alt="Clique/Vertex Verifier logo">
   <p class="eyebrow">THEORY OF COMPUTATION — CERTIFICATE VERIFICATION</p>
   <h1>Clique / Vertex Cover <span>Verifier</span></h1>
-  <p class="lede">Build a graph, hand the verifier a certificate for Clique or Vertex Cover, and watch it check — one comparison at a time. Android app, or right in any browser on desktop &amp; phone.</p>
+  <p class="lede">Build a graph, hand the verifier a certificate for Clique or Vertex Cover, and watch it check — one comparison at a time. Install it, or just run it straight in your browser.</p>
 
   <a class="download-btn" href="https://github.com/PranavCM24032/clique-vertex_Verfier/releases/download/np-verifier-apk/NP-Certificate-Verifier.apk">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1v9m0 0 3.5-3.5M8 10 4.5 6.5"/><path d="M2.5 13.5h11"/></svg>
@@ -84,14 +100,30 @@
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1v9m0 0 3.5-3.5M8 10 4.5 6.5"/><path d="M2.5 13.5h11"/></svg>
     Download for Windows (.exe)
   </a>
-  <p class="download-note">Android 7+ &nbsp;·&nbsp; Windows 10/11 &nbsp;·&nbsp; work fully offline · no install for Windows, just run the .exe</p>
+  <a class="download-btn alt" href="app.html">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4"/><path d="M8 1.8c1.7 1.9 2.6 3.9 2.6 6.2S9.7 12.3 8 14.2C6.3 12.3 5.4 10.3 5.4 8S6.3 3.7 8 1.8Z"/></svg>
+    Run it on the web — no download
+  </a>
+  <p class="download-note">Android 7+ &nbsp;·&nbsp; Windows 10/11 for the .exe &nbsp;·&nbsp; any browser, including Linux &amp; Mac</p>
+  <p class="download-note">All three work fully offline &nbsp;·&nbsp; no install for Windows, just run the .exe &nbsp;·&nbsp; the web version can be added to your home screen from the browser menu</p>
+
+  <div class="win-note" id="winNote">
+    <span class="win-note-title">Windows: &ldquo;Windows protected your PC&rdquo; on first run?</span>
+    That is SmartScreen, and it is expected &mdash; the <code>.exe</code> is not code-signed, so
+    Windows blocks any unfamiliar download. It is not a virus. Choose either:
+    <b>More info &rarr; Run anyway</b>, or right-click the file &rarr; <b>Properties</b> &rarr; tick
+    <b>Unblock</b> &rarr; <b>Apply</b>. One-time only, then it opens normally.
+    <br>First launch takes ~15&nbsp;seconds while it unpacks itself; your antivirus may also
+    flag an unsigned executable.
+  </div>
+
   <p class="status" id="status"></p>
 </div>
 
 <script>
   if (!navigator.onLine) {
     var s = document.getElementById('status');
-    s.textContent = 'You seem to be offline. Once installed, the app works without internet.';
+    s.textContent = 'You seem to be offline. The .apk and .exe still work once downloaded; the web version needs one online visit to cache itself.';
   }
 </script>
 

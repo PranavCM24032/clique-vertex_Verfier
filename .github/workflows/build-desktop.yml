@@ -33,6 +33,29 @@ jobs:
         working-directory: desktop
         run: npx electron-builder --win portable --publish never
 
+      - name: Remove stale assets from earlier builds
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: np-verifier-desktop
+        run: |
+          # This workflow republishes to the same tag every push, and
+          # action-gh-release only *adds* to a release. Without this, assets from
+          # older builds stay attached forever - which is how a retired installer
+          # kept sitting next to the current portable .exe, two near-identical
+          # downloads with different contents.
+          release_id=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$TAG" --jq '.id' 2>/dev/null || true)
+          if [ -z "$release_id" ]; then
+            echo "No existing release for $TAG yet - nothing to clean up."
+            exit 0
+          fi
+          gh api "repos/$GITHUB_REPOSITORY/releases/$release_id/assets" --paginate --jq '.[].id' |
+            while read -r asset_id; do
+              [ -n "$asset_id" ] || continue
+              name=$(gh api "repos/$GITHUB_REPOSITORY/releases/assets/$asset_id" --jq '.name')
+              gh api -X DELETE "repos/$GITHUB_REPOSITORY/releases/assets/$asset_id"
+              echo "Deleted stale asset: $name"
+            done
+
       - name: Publish EXE to GitHub Release
         uses: softprops/action-gh-release@v3
         with:
@@ -43,6 +66,12 @@ jobs:
 
             Just download and double-click — no installation required.
             Works fully offline on Windows 10/11 (64-bit).
+
+            **If Windows shows "Windows protected your PC":** this build is not
+            code-signed, so SmartScreen blocks unfamiliar downloads. It is not a
+            virus. Click **More info → Run anyway**, or right-click the file →
+            **Properties** → tick **Unblock** → **Apply**. One-time only.
+            First launch takes about 15 seconds while it unpacks itself.
           files: desktop/dist/NP-Certificate-Verifier.exe
           make_latest: 'false'
 

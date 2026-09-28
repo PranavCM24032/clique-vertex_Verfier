@@ -27,7 +27,9 @@ App icon and splash screen are generated from `logo.png`.
 | --- | --- | --- |
 | Android phone/tablet | Download the `.apk`, install (allow unknown sources) | Yes |
 | Windows 10/11 desktop | Download the `.exe`, double-click it — no install | Yes |
-| Any browser (desktop or mobile) | Open `…/app.html`, or install it as a PWA from the browser menu | Yes |
+| Any browser (desktop or mobile) | Tap **Run it on the web** on the landing page — no download, works on Linux &amp; Mac too. Installable as a PWA from the browser menu. | Yes, after one visit |
+
+Live web app: <https://pranavcm24032.github.io/clique-vertex_Verfier/app.html>
 
 ## How to get the APK (one-time setup)
 
