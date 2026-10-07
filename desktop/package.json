@@ -34,7 +34,8 @@
           "arch": ["x64"]
         }
       ],
-      "icon": "build/icon.png"
+      "icon": "build/icon.png",
+      "requestedExecutionLevel": "asInvoker"
     },
     "portable": {
       "artifactName": "NP-Certificate-Verifier.exe"
