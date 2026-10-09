@@ -5,6 +5,7 @@
   "description": "NP Certificate Verifier - Clique & Vertex Cover (Capacitor Android wrapper)",
   "scripts": {
     "prepare:web": "node scripts/prepare-web.mjs",
+    "test": "node scripts/test-verifier.mjs && node scripts/test-app-ui.mjs",
     "sync": "npm run prepare:web && cap sync android",
     "icons": "node scripts/generate-icons.mjs"
   },

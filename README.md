@@ -18,6 +18,8 @@ App icon and splash screen are generated from `logo.png`.
 | `desktop/` | Electron wrapper that produces the Windows `.exe` |
 | `scripts/prepare-web.mjs` | Copies `app.html` → `www/` for Capacitor |
 | `scripts/generate-icons.mjs` | Regenerates `res/` from `logo.png` (`npm run icons`) |
+| `scripts/test-verifier.mjs` | Unit tests for the verifier core inside `app.html` |
+| `scripts/test-app-ui.mjs` | End-to-end tests of `app.html`'s own UI code (fake DOM) |
 | `.github/workflows/build-apk.yml` | Builds the Android APK on every push |
 | `.github/workflows/build-desktop.yml` | Builds the Windows EXE on every push |
 
@@ -81,6 +83,18 @@ cd android && ./gradlew assembleDebug
 ```
 
 The APK lands in `android/app/build/outputs/apk/debug/app-debug.apk`.
+
+## Tests
+
+```
+npm test
+```
+
+Runs `scripts/test-verifier.mjs` (the verifier core extracted from `app.html`) and
+`scripts/test-app-ui.mjs` (`app.html`'s real script driven through a fake DOM).
+Covers ACCEPTED and REJECTED certificates for both problems, duplicate vertices,
+nonexistent vertices, wrong certificate sizes, malformed certificate input, and the
+O(n²) bound on the number of checks. The Pages deploy runs `npm test` first.
 
 ## Notes
 

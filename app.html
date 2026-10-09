@@ -656,6 +656,66 @@
     footer b {
       color: var(--black);
     }
+
+    /* --- usability refresh --- */
+    :root { --paper:#fffdf9; --line:#e8e2d9; --orange:#d95500; --orange-deep:#9f3d00; --orange-tint:#fff0df; }
+    body { background:#f7f7f5; color:#242321; font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    header.hero { padding:clamp(36px,6vw,72px) max(6vw, calc((100vw - 1200px)/2)) 54px; background:#191918; }
+    header.hero .eyebrow { font-weight:700; letter-spacing:.12em; font-size:11px; }
+    header.hero h1 { letter-spacing:-.04em; max-width:720px; font-size:clamp(32px,5vw,58px); }
+    header.hero p.lede { max-width:560px; line-height:1.8; }
+    .complexity-badge { border-radius:999px; padding:8px 14px; background:rgba(217,85,0,.12); font-weight:650; }
+    main { max-width:1200px; padding:28px 6vw 80px; }
+    .workflow-nav { max-width:1200px; margin:0 auto; padding:18px 6vw; display:flex; gap:10px; flex-wrap:wrap; background:#fff; border-bottom:1px solid var(--line); }
+    .workflow-nav a { display:flex; align-items:center; gap:9px; text-decoration:none; color:#3e3b36; font-size:13px; font-weight:650; padding:9px 13px; border:1px solid #ebe6df; border-radius:999px; transition:background .18s,border-color .18s; }
+    .workflow-nav a:hover { background:#fff0df; border-color:#f0b27e; }
+    .workflow-nav a span,.step-number { display:inline-grid; place-items:center; width:25px; height:25px; border-radius:50%; background:#fff0df; color:#a63f00; font-size:12px; font-weight:800; }
+    .quick-guide { display:flex; gap:13px; align-items:flex-start; padding:17px 19px; margin:0 0 34px; border:1px solid #ead7c4; background:#fffaf4; border-radius:14px; }
+    .quick-guide-icon { flex:0 0 28px; height:28px; display:grid; place-items:center; border-radius:50%; background:#191918; color:#fff; font-weight:800; }
+    .quick-guide strong { font-size:14px; }
+    .quick-guide p { margin:3px 0 0; color:#686159; font-size:13px; line-height:1.65; }
+    section { margin-bottom:48px; scroll-margin-top:16px; }
+    h2.section-title { display:flex; gap:10px; align-items:center; font-size:clamp(20px,2.5vw,26px); letter-spacing:-.025em; }
+    .section-sub { line-height:1.75; }
+    .panel-grid { grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); gap:18px; }
+    .card,.tape-card { background:#fff; border:1px solid #e9e5df; border-radius:16px; box-shadow:0 8px 24px rgba(34,28,20,.035); }
+    .card { padding:clamp(16px,2vw,24px); }
+    .card h3 { font-size:15px; display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+    .mini-tag { display:inline-flex; align-items:center; border-radius:999px; background:#f5f1eb; color:#766b5e; font:700 9px/1.6 Inter,system-ui,sans-serif; letter-spacing:.09em; padding:3px 8px; }
+    select,input[type=text],input[type=number],textarea { border-radius:9px; min-height:42px; border-color:#dcd6ce; transition:border-color .15s,box-shadow .15s; }
+    select:focus,input:focus,textarea:focus,button:focus-visible,a:focus-visible { outline:3px solid rgba(217,85,0,.23); outline-offset:2px; border-color:var(--orange); }
+    button { min-height:40px; border-radius:9px; font-weight:650; transition:transform .12s,background .15s,opacity .12s; }
+    button:not(:disabled):active { transform:translateY(1px); }
+    button.orange { box-shadow:0 4px 10px rgba(217,85,0,.12); }
+    canvas { border-radius:10px; }
+    #graphCanvas { background-image:radial-gradient(#e9e3dc 1px,transparent 1px); background-size:18px 18px; }
+    .canvas-hint { line-height:1.65; }
+    .stat { border-radius:10px; }
+    .field-error { margin:4px 0 0; color:#b42318; font-size:12px; line-height:1.5; }
+    .field-error:empty { display:none; }
+    .tape-card { overflow:hidden; }
+    .tape-header { background:#fcfaf7; }
+    .verdict-stage { border-radius:10px; }
+    .tape-controls { gap:8px; }
+    .race-grid,.explainer-grid { gap:18px; }
+    .race-track { border-radius:999px; height:12px; }
+    footer { background:#fff; padding:22px 6vw; }
+    @media(max-width:880px) { .panel-grid { grid-template-columns:1fr; } .workflow-nav { padding:14px 5vw; } }
+    @media(max-width:600px) {
+      header.hero { padding:38px 6vw 36px; }
+      header.hero h1 br { display:none; }
+      main { padding:24px 4vw 54px; }
+      .workflow-nav { gap:7px; }
+      .workflow-nav a { flex:1 1 145px; font-size:12px; }
+      .quick-guide { padding:14px; }
+      #graphCanvas,#simCanvas { height:280px; }
+      .tape-controls button { flex:1; }
+      .speed-wrap { flex:1 1 100%; }
+      input[type=range] { flex:1; width:auto; }
+      footer { padding:20px 5vw; }
+    }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; animation:none!important; } }
+
   </style>
 </head>
 
@@ -663,10 +723,9 @@
 
   <header class="hero">
     <p class="eyebrow">THEORY OF COMPUTATION — CERTIFICATE VERIFICATION</p>
-    <h1>Checking a solution is<br>always cheaper than <span>finding</span> one.</h1>
-    <p class="lede">Build a graph, hand the verifier a proposed certificate for Clique or Vertex Cover, then step
-      through exactly what it checks — one comparison at a time — to see the polynomial-time bound in action.</p>
-    <div class="complexity-badge">verifier runs in O(n²) — independent of solver time</div>
+    <h1>Verify a solution.<br><span>Understand</span> why it works.</h1>
+    <p class="lede">Create a graph, enter a proposed solution, and watch the verifier check it step by step. No guessing — just clear, checkable rules.</p>
+    <div class="complexity-badge">Verifier runs in O(n²) — polynomial in n = |V|, m = |E|</div>
     <svg class="hero-graph" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
       <g stroke="#e85d04" stroke-width="1.4" opacity="0.55">
         <line x1="80" y1="90" x2="220" y2="60" />
@@ -690,37 +749,46 @@
     </svg>
   </header>
 
-  <main>
+  <nav class="workflow-nav" aria-label="Project steps">
+    <a href="#build-section"><span>1</span> Build graph</a>
+    <a href="#verify-section"><span>2</span> Verify solution</a>
+    <a href="#compare-section"><span>3</span> Compare complexity</a>
+    <a href="#complexity-section"><span>4</span> Complexity, precisely</a>
+  </nav>
 
-    <section>
-      <h2 class="section-title">1 · Build the instance</h2>
+  <main>
+    <div class="quick-guide" role="note">
+      <div class="quick-guide-icon">i</div>
+      <div><strong>Quick start</strong><p>Load an example or draw your own graph. Choose Clique or Vertex Cover, enter the certificate, then select <b>Verify certificate</b>.</p></div>
+    </div>
+
+    <section id="build-section">
+      <h2 class="section-title"><span class="step-number">1</span> Build your graph</h2>
       <p class="section-sub">Pick the problem, then click empty space on the canvas to place a vertex, and click two
         existing vertices in sequence to toggle an edge between them.</p>
 
       <div class="panel-grid">
         <div class="card">
-          <h3>Graph editor</h3>
+          <h3>Graph editor <span class="mini-tag">INTERACTIVE</span></h3>
           <div class="row">
             <div>
-              <label class="field-label">Problem</label>
+              <label class="field-label" for="problemSelect">Choose a problem</label>
               <select id="problemSelect">
                 <option value="clique">Clique — does a k-vertex clique exist?</option>
                 <option value="vc">Vertex Cover — does a size-k cover exist?</option>
               </select>
             </div>
             <div>
-              <label class="field-label">k</label>
+              <label class="field-label" for="kInput">Target size (k)</label>
               <input type="number" id="kInput" min="1" value="3" style="width:76px;">
             </div>
             <div style="display:flex;gap:8px;">
-              <button class="secondary" id="loadExampleBtn">Load example</button>
+              <button class="secondary" id="loadExampleBtn">Try example</button>
               <button class="secondary" id="clearBtn">Clear</button>
             </div>
           </div>
-          <canvas id="graphCanvas"></canvas>
-          <p class="canvas-hint">Vertices: <span id="vertexCount">0</span> &nbsp;·&nbsp; Edges: <span
-              id="edgeCount">0</span> &nbsp;·&nbsp; click a vertex to select it, click a second to connect, click the
-            same one again to deselect</p>
+          <canvas id="graphCanvas" aria-label="Interactive graph editor. Click empty space to add a vertex; click two vertices to connect them."></canvas>
+          <p class="canvas-hint">Vertices: <strong id="vertexCount">0</strong> &nbsp;·&nbsp; Edges: <strong id="edgeCount">0</strong><br>Click empty space to add a vertex. Select two vertices to connect them.</p>
 
           <div class="text-input-toggle">
             <button class="secondary" id="toggleTextInput" type="button">Or type the graph as text ▾</button>
@@ -748,29 +816,29 @@
         </div>
 
         <div class="card">
-          <h3>Certificate</h3>
-          <p style="font-size:12.5px;color:#5a534a;margin-top:0;">Enter the proposed solution — a comma-separated list
-            of vertex numbers. A verifier never searches; it only checks what it is handed.</p>
+          <h3>Your proposed solution <span class="mini-tag">CERTIFICATE</span></h3>
+          <p style="font-size:12.5px;color:#5a534a;margin-top:0;">Enter the vertex numbers separated by commas. The verifier checks only this list — it does not search for a solution.</p>
           <div class="row">
-            <input type="text" id="certInput" placeholder="e.g. 1,2,4">
+            <input type="text" id="certInput" aria-label="Certificate vertex IDs" placeholder="Example: 1, 2, 3" autocomplete="off">
+            <p class="field-error" id="certError" role="alert" aria-live="polite"></p>
           </div>
           <div class="row">
-            <button class="orange" id="verifyBtn" style="flex:1;">Load into simulator</button>
+            <button class="orange" id="verifyBtn" style="flex:1;">Verify certificate</button>
           </div>
           <div class="stat-row" id="statRow"></div>
         </div>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">2 · Step through the simulation</h2>
+    <section id="verify-section">
+      <h2 class="section-title"><span class="step-number">2</span> Check the certificate</h2>
       <p class="section-sub">Each check the verifier performs, one at a time. The graph highlights exactly what's being
         compared right now.</p>
 
       <div class="sim-grid">
         <div class="card" style="padding-bottom:16px;">
           <h3>Live graph</h3>
-          <canvas id="simCanvas"></canvas>
+          <canvas id="simCanvas" aria-label="Graph view highlighting the current verification step."></canvas>
           <p class="canvas-hint" id="simLegend">Load a certificate above to begin.</p>
         </div>
 
@@ -782,7 +850,7 @@
           <div class="tape-dots" id="tapeDots"></div>
 
           <div class="step-stage" id="stepStage">
-            <div class="step-idle">Build a graph and certificate above, then click "Load into simulator".</div>
+            <div class="step-idle">Build a graph, enter a certificate, then select “Verify certificate”.</div>
           </div>
 
           <div class="verdict-stage" id="verdictStage"></div>
@@ -802,10 +870,9 @@
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">3 · Solver vs verifier</h2>
-      <p class="section-sub">Same instance, two very different jobs. The solver searches for a certificate from scratch;
-        the verifier only ever grades one you hand it.</p>
+    <section id="compare-section">
+      <h2 class="section-title"><span class="step-number">3</span> Explore the complexity</h2>
+      <p class="section-sub">Conceptually compare searching for a solution with checking one you already have. The bars below are an illustration, not a real-time benchmark.</p>
 
       <div class="race-grid">
         <div class="card race-card">
@@ -830,12 +897,45 @@
 
       <div class="card" style="margin-top:22px;">
         <h3>Growth as the graph gets bigger</h3>
-        <p style="font-size:12.5px;color:#5a534a;margin-top:0;">Same k, n scaling up from your current graph. The
-          verifier line stays flat; the solver line — plotted on a log scale — doesn't.</p>
+        <p style="font-size:12.5px;color:#5a534a;margin-top:0;">A simplified growth illustration for the same k as n increases. It explains the difference in scale; it does not measure actual runtime.</p>
         <canvas id="growthCanvas" style="height:260px;"></canvas>
         <div class="chart-legend">
-          <span><i class="legend-dot verifier"></i>verifier checks (O(n²))</span>
+          <span><i class="legend-dot verifier"></i>verifier checks (⊆ O(n²))</span>
           <span><i class="legend-dot solver"></i>solver candidates (log scale)</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="complexity-section">
+      <h2 class="section-title"><span class="step-number">4</span> Complexity, precisely</h2>
+      <p class="section-sub">What each symbol means, where every step of the running time is spent, and why the
+        verifier stays polynomial while the solver does not.</p>
+
+      <div class="explainer-grid">
+        <div class="card">
+          <h3>Notation</h3>
+          <p><code>n = |V|</code> — vertices in the instance · <code>m = |E|</code> — edges (a simple graph has at
+            most n(n−1)/2) · <code>|C|</code> — vertices in the submitted certificate · <code>k</code> — the
+            solution size the instance asks for.</p>
+          <p style="margin-top:12px;">The requirement's <code>O(nᵏ)</code> uses <code>k</code> as a fixed constant
+            exponent, not the instance parameter <code>k</code> above — it only claims "some polynomial in n". This
+            verifier is stronger: it runs in <code>O(n²)</code> whatever <code>k</code> is.</p>
+        </div>
+        <div class="card">
+          <h3>Where the verifier's time goes</h3>
+          <p>Turn <code>C</code> into a hash <code>Set</code> once: <code>O(|C|)</code>. Existence and duplicate
+            checks: <code>O(|C|)</code>. Clique does <code>|C|(|C|−1)/2</code> edge lookups — <code>O(k²)</code>.
+            Vertex Cover does one <code>O(1)</code> membership test per edge — <code>O(m)</code>. With
+            <code>|C| ≤ n</code> and <code>m ≤ n(n−1)/2</code>, both are bounded by <code>O(n²)</code>.</p>
+          <p style="margin-top:12px;">No search, no backtracking — the verifier only reads the certificate it was
+            handed and checks it against the instance, which is exactly what puts the problem in <b>NP</b>.</p>
+        </div>
+        <div class="card" style="grid-column:1 / -1;">
+          <h3>Solver vs verifier, stated honestly</h3>
+          <p>The brute-force solver may have to examine <code>C(n, k)</code> candidate subsets for Clique, or
+            <code>Σ C(n, i)</code> for i ≤ k for Vertex Cover — exponential in n. The verifier examines one
+            certificate in <code>O(n²)</code>. The race and the growth chart above illustrate that gap; they are
+            drawn on a fixed schedule and are not wall-clock measurements of execution time.</p>
         </div>
       </div>
     </section>
@@ -846,6 +946,106 @@
     <span>Clique / Vertex Cover certificate verifier — Theory of Computation project</span>
     <span><b>Pranav Mohan Paunikar</b> · CM24032</span>
   </footer>
+
+  <script>
+    /* ===== verifier-core:start — pure logic, no DOM. scripts/test-verifier.mjs extracts this block. ===== */
+
+    function edgeKey(a, b) { return a < b ? a + '-' + b : b + '-' + a; }
+
+    // Strict parser: every token must be a whole-number vertex ID. Malformed input is
+    // rejected with an error instead of being silently dropped, so a typo can never
+    // quietly turn into a smaller, different certificate that then gets graded.
+    function parseCertificate(raw) {
+      const text = String(raw == null ? '' : raw).trim();
+      if (!text) {
+        return { ok: false, error: 'Enter at least one vertex ID, for example: 1, 2, 3.' };
+      }
+      const tokens = text.split(/[\s,]+/).filter(t => t.length > 0);
+      const ids = [];
+      for (let i = 0; i < tokens.length; i++) {
+        const t = tokens[i];
+        if (!/^\d+$/.test(t)) {
+          return {
+            ok: false,
+            error: 'Invalid certificate entry "' + t + '" — use whole-number vertex IDs separated by commas, e.g. 1, 2, 3.'
+          };
+        }
+        ids.push(parseInt(t, 10));
+      }
+      return { ok: true, ids: ids };
+    }
+
+    // The ordered list of checks the verifier runs on one certificate.
+    // Cost: one O(|C|) pass to build the certificate Set, then O(|C|²) pair lookups
+    // for Clique or one O(1) membership test per edge for Vertex Cover. Since
+    // |C| ≤ n and m ≤ n(n-1)/2, both verify in O(n²) — n = |V|, m = |E|.
+    function buildVerificationSteps(nodes, edgeSet, problem, k, cert) {
+      const certSet = new Set(cert);
+      const graphIds = new Set(nodes.map(n => n.id));
+      const steps = [];
+
+      const allExist = cert.every(v => graphIds.has(v));
+      steps.push({
+        pass: allExist,
+        text: allExist
+          ? 'Every certificate vertex exists in the graph — {' + cert.join(', ') + '} ⊆ V'
+          : 'Certificate vertex set {' + cert.join(', ') + '} is not a subset of V — some vertex does not exist',
+        hlNodes: cert.slice(), hlEdge: null
+      });
+
+      const noDup = certSet.size === cert.length;
+      steps.push({
+        pass: noDup,
+        text: noDup
+          ? 'Certificate has no duplicate vertices'
+          : 'Certificate repeats a vertex — a certificate must be a set of distinct vertices',
+        hlNodes: cert.slice(), hlEdge: null
+      });
+
+      if (problem === 'clique') {
+        const sizeOk = cert.length === k;
+        steps.push({
+          pass: sizeOk,
+          text: '|C| = ' + cert.length + (sizeOk ? ' equals k = ' : 'does not equal k = ') + k,
+          hlNodes: cert.slice(), hlEdge: null
+        });
+        if (allExist && noDup) {
+          for (let i = 0; i < cert.length; i++) {
+            for (let j = i + 1; j < cert.length; j++) {
+              const a = cert[i], b = cert[j];
+              const e = edgeSet.has(edgeKey(a, b));
+              steps.push({
+                pass: e,
+                text: 'Edge check (' + a + ', ' + b + ') — ' + (e ? 'present' : 'MISSING'),
+                hlNodes: [a, b], hlEdge: [a, b]
+              });
+            }
+          }
+        }
+      } else {
+        const sizeOk = cert.length <= k;
+        steps.push({
+          pass: sizeOk,
+          text: '|C| = ' + cert.length + (sizeOk ? ' is at most k = ' : 'exceeds k = ') + k,
+          hlNodes: cert.slice(), hlEdge: null
+        });
+        if (allExist) {
+          edgeSet.forEach(key => {
+            const parts = key.split('-');
+            const a = parseInt(parts[0], 10), b = parseInt(parts[1], 10);
+            const covered = certSet.has(a) || certSet.has(b);
+            steps.push({
+              pass: covered,
+              text: 'Edge (' + a + ', ' + b + ') covered by C — ' + (covered ? 'yes' : 'NO'),
+              hlNodes: [a, b].filter(v => certSet.has(v)), hlEdge: [a, b]
+            });
+          });
+        }
+      }
+      return steps;
+    }
+    /* ===== verifier-core:end ===== */
+  </script>
 
   <script>
     (function () {
@@ -860,8 +1060,6 @@
       let edges = new Set();
       let pendingSelect = null;
       let nextId = 1;
-
-      function edgeKey(a, b) { return a < b ? a + '-' + b : b + '-' + a; }
 
       // Match the bitmap to the on-screen box. Round instead of truncating, otherwise
       // a fractional CSS width (482.8px) leaves the bitmap a pixel short and the browser
@@ -963,7 +1161,11 @@
             if (count < 1 || count > 60) { errEl.textContent = 'Enter a vertex count between 1 and 60.'; return; }
             ids = Array.from({ length: count }, (_, i) => i + 1);
           } else if (vRaw.length) {
-            ids = vRaw.split(',').map(s => parseInt(s.trim(), 10)).filter(v => !isNaN(v));
+            const tokens = vRaw.split(',').map(s => s.trim()).filter(Boolean);
+            for (const t of tokens) {
+              if (!/^\d+$/.test(t)) { errEl.textContent = `Vertex "${t}" isn't a whole number — use e.g. 1,2,3,4,5.`; return; }
+              ids.push(parseInt(t, 10));
+            }
             ids = Array.from(new Set(ids));
           }
 
@@ -1100,65 +1302,39 @@
         drawGraphEditor(); resetSimulator();
       });
 
-      function parseCert() {
-        const raw = document.getElementById('certInput').value.trim();
-        if (!raw) return [];
-        return raw.split(',').map(s => parseInt(s.trim(), 10)).filter(v => !isNaN(v));
-      }
-      function hasEdge(a, b) { return edges.has(edgeKey(a, b)); }
-
       /* ---------------- simulator state ---------------- */
       let simNodes = [];
       let simEdges = [];
       let steps = [];
       let curIndex = -1;
       let cert = [];
+      let certSet = new Set();
       let playTimer = null;
       let pulsePhase = 0;
       let pulseRaf = null;
 
-      function buildSteps() {
-        const problem = document.getElementById('problemSelect').value;
-        const k = parseInt(document.getElementById('kInput').value, 10) || 0;
-        cert = parseCert();
-        const validIds = new Set(nodes.map(n => n.id));
-        const list = [];
-
-        const allExist = cert.every(v => validIds.has(v));
-        list.push({ pass: allExist, text: `Every certificate vertex exists in the graph — {${cert.join(', ')}} ⊆ V`, hlNodes: cert.slice(), hlEdge: null });
-
-        if (allExist) {
-          const noDup = new Set(cert).size === cert.length;
-          list.push({ pass: noDup, text: `Certificate has no duplicate vertices`, hlNodes: cert.slice(), hlEdge: null });
-        }
-
-        if (problem === 'clique') {
-          const sizeOk = cert.length === k;
-          list.push({ pass: sizeOk, text: `|C| = ${cert.length} equals k = ${k}`, hlNodes: cert.slice(), hlEdge: null });
-          if (allExist) {
-            for (let i = 0; i < cert.length; i++) {
-              for (let j = i + 1; j < cert.length; j++) {
-                const a = cert[i], b = cert[j];
-                const e = hasEdge(a, b);
-                list.push({ pass: e, text: `Edge check (${a}, ${b}) — ${e ? 'present' : 'MISSING'}`, hlNodes: [a, b], hlEdge: [a, b] });
-              }
-            }
-          }
-        } else {
-          const sizeOk = cert.length <= k;
-          list.push({ pass: sizeOk, text: `|C| = ${cert.length} is at most k = ${k}`, hlNodes: cert.slice(), hlEdge: null });
-          if (allExist) {
-            edges.forEach(key => {
-              const [a, b] = key.split('-').map(Number);
-              const covered = cert.includes(a) || cert.includes(b);
-              list.push({ pass: covered, text: `Edge (${a}, ${b}) covered by C — ${covered ? 'yes' : 'NO'}`, hlNodes: [a, b].filter(v => cert.includes(v)), hlEdge: [a, b] });
-            });
-          }
-        }
-        return { list, problem, k };
+      function buildSteps(problem, k) {
+        return { list: buildVerificationSteps(nodes, edges, problem, k, cert), problem, k };
       }
 
       function loadSimulator() {
+        const certError = document.getElementById('certError');
+        certError.textContent = '';
+
+        // Input-level failure: nothing gets verified, because a verifier can only
+        // grade a well-formed certificate in the first place.
+        const parsed = parseCertificate(document.getElementById('certInput').value);
+        if (!parsed.ok) {
+          certError.textContent = parsed.error;
+          document.getElementById('certInput').focus();
+          return;
+        }
+        const parsedK = Number(document.getElementById('kInput').value);
+        if (!Number.isInteger(parsedK) || parsedK < 1) {
+          certError.textContent = 'Enter a target size k of 1 or more.';
+          document.getElementById('kInput').focus();
+          return;
+        }
         if (nodes.length === 0) {
           // With no graph the verifier has nothing to grade; an all-failing run here
           // would look like a real result rather than a missing input.
@@ -1167,9 +1343,11 @@
           document.getElementById('simLegend').textContent = 'No graph loaded.';
           return;
         }
+        cert = parsed.ids;
+        certSet = new Set(cert);
         simNodes = nodes.map(n => ({ ...n }));
         simEdges = Array.from(edges);
-        const built = buildSteps();
+        const built = buildSteps(document.getElementById('problemSelect').value, parsedK);
         steps = built.list;
         curIndex = -1;
         document.getElementById('tapeTitle').textContent =
@@ -1181,7 +1359,7 @@
         drawSim();
 
         const n = simNodes.length, m = simEdges.length;
-        const boundLabel = built.problem === 'clique' ? 'O(k²) pair checks' : 'O(m) edge checks';
+        const boundLabel = built.problem === 'clique' ? 'O(k²) ⊆ O(n²)' : 'O(m) ⊆ O(n²)';
         document.getElementById('statRow').innerHTML = `
       <div class="stat"><b>${n}</b>vertices (n)</div>
       <div class="stat"><b>${m}</b>edges (m)</div>
@@ -1322,7 +1500,7 @@
         document.getElementById('tapeTitle').textContent = 'Verifier tape';
         document.getElementById('tapeCount').textContent = 'step 0 / 0';
         document.getElementById('tapeDots').innerHTML = '';
-        document.getElementById('stepStage').innerHTML = '<div class="step-idle">Build a graph and certificate above, then click "Load into simulator".</div>';
+        document.getElementById('stepStage').innerHTML = '<div class="step-idle">Build a graph, enter a certificate, then select “Verify certificate”.</div>';
         document.getElementById('verdictStage').className = 'verdict-stage';
         document.getElementById('verdictStage').innerHTML = '';
         document.getElementById('statRow').innerHTML = '';
@@ -1352,7 +1530,7 @@
       function invalidateSimulator(what) {
         if (steps.length === 0 && raceData === null) return;
         resetSimulator();
-        const msg = what + ' — that run no longer applies. Click "Load into simulator" to verify the current instance.';
+        const msg = what + ' — that run no longer applies. Click "Verify certificate" to check the current instance.';
         document.getElementById('stepStage').innerHTML = '<div class="step-idle">' + msg + '</div>';
         document.getElementById('simLegend').textContent = msg;
       }
@@ -1508,7 +1686,7 @@
         });
 
         simNodes.forEach(n => {
-          const inCert = cert.includes(n.id);
+          const inCert = certSet.has(n.id);
           const isActiveNode = curStep && curStep.hlNodes && curStep.hlNodes.includes(n.id);
           if (isActiveNode) {
             const r = 17 + Math.sin(pulsePhase) * 2.2;
